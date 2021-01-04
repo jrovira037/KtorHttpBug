@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+group 'com.jota.ktor'
+version '0.0.1'
+mainClassName = "io.ktor.server.netty.EngineMain"
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src']
+    test.kotlin.srcDirs = test.java.srcDirs = ['test']
+    main.resources.srcDirs = ['resources']
+    test.resources.srcDirs = ['testresources']
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+
+    // DI
+    implementation "org.koin:koin-core:2.0.1" // for Kotlin
+    implementation "org.koin:koin-core-ext:2.0.1" // extended & experimental features
+    implementation "org.koin:koin-ktor:2.0.1" //for Ktor
+
+    implementation "io.ktor:ktor-server-jetty:$ktor_version"
+    implementation "io.ktor:ktor-jackson:$ktor_version"
+    implementation "io.ktor:ktor-auth:$ktor_version"
+    testImplementation "io.ktor:ktor-server-tests:$ktor_version"
+}
